@@ -141,7 +141,7 @@
         function updateValues(value) {
             const formattedValue = Number(value).toLocaleString();
             numberInput.value = value;
-            numberInput.nextElementSibling.textContent = `${formattedValue} L`;
+            numberInput.nextElementSibling.textContent = `&#8358; {formattedValue} L`;
         }
 
         rangeSlider.addEventListener('input', (e) => {

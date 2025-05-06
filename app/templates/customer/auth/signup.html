@@ -331,9 +331,9 @@
         const label = document.createElement('label');
         label.className = 'flex items-center p-3 border rounded-lg hover:bg-gray-50';
         label.innerHTML = `
-          <input type="checkbox" name="appliances" value="${appliance.name}" class="text-blue-600 rounded">
-          <i class="fa-solid ${appliance.icon} ml-3 mr-2"></i>
-          <span>${appliance.name}</span>
+          <input type="checkbox" name="appliances" value="&#8358; {appliance.name}" class="text-blue-600 rounded">
+          <i class="fa-solid &#8358; {appliance.icon} ml-3 mr-2"></i>
+          <span>&#8358; {appliance.name}</span>
         `;
         appliancesContainer.appendChild(label);
       });
@@ -344,8 +344,8 @@
         const label = document.createElement('label');
         label.className = 'flex items-center';
         label.innerHTML = `
-          <input type="radio" name="refillFrequency" value="${frequency}" class="text-blue-600">
-          <span class="ml-2">${frequency}</span>
+          <input type="radio" name="refillFrequency" value="&#8358; {frequency}" class="text-blue-600">
+          <span class="ml-2">&#8358; {frequency}</span>
         `;
         refillContainer.appendChild(label);
       });
@@ -356,9 +356,9 @@
         const label = document.createElement('label');
         label.className = 'flex items-center p-3 border rounded-lg hover:bg-gray-50';
         label.innerHTML = `
-          <input type="checkbox" name="notificationChannels" value="${channel.name}" class="text-blue-600 rounded">
-          <i class="fa-solid ${channel.icon} ml-3 mr-2"></i>
-          <span>${channel.name}</span>
+          <input type="checkbox" name="notificationChannels" value="&#8358; {channel.name}" class="text-blue-600 rounded">
+          <i class="fa-solid &#8358; {channel.icon} ml-3 mr-2"></i>
+          <span>&#8358; {channel.name}</span>
         `;
         notificationsContainer.appendChild(label);
       });
@@ -412,7 +412,7 @@
         document.getElementById('email-error').textContent = 'Email is required';
         document.getElementById('email-error').classList.remove('hidden');
         isValid = false;
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+&#8358; /.test(email)) {
         document.getElementById('email-error').textContent = 'Please enter a valid email';
         document.getElementById('email-error').classList.remove('hidden');
         isValid = false;
@@ -521,7 +521,7 @@ document.getElementById('account-form').addEventListener('submit', async functio
 // Helper function to show alerts
 function showAlert(type, message) {
     const alertDiv = document.createElement('div');
-    alertDiv.className = `fixed top-4 right-4 p-4 rounded-md shadow-lg ${
+    alertDiv.className = `fixed top-4 right-4 p-4 rounded-md shadow-lg &#8358; {
         type === 'success' ? 'bg-green-500' : 'bg-red-500'
     } text-white`;
     alertDiv.textContent = message;
