@@ -1,0 +1,754 @@
+<html class="">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        window.FontAwesomeConfig = {
+            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
+
+    <style>
+        * {
+            font-family: "Inter", sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+
+
+    <style>
+        .highlighted-section {
+            outline: 2px solid #3F20FB;
+            background-color: rgba(63, 32, 251, 0.1);
+        }
+
+        .edit-button {
+            position: absolute;
+            z-index: 1000;
+        }
+
+        /* Mobile menu transition */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* Active nav item style */
+        .nav-item.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            font-weight: 600;
+            border-left: 3px solid #3b82f6;
+        }
+        
+        /* Overlay for mobile menu */
+        .overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+
+
+    <style>
+        :root {
+            /* Base colors */
+            --color-base: #ffffff;
+            --color-base-50: #f9fafb;
+            --color-base-100: #f3f4f6;
+            --color-base-200: #e5e7eb;
+            --color-base-300: #d1d5db;
+            --color-base-400: #9ca3af;
+            --color-base-500: #6b7280;
+            --color-base-600: #4b5563;
+            --color-base-700: #374151;
+            --color-base-800: #1f2937;
+            --color-base-900: #111827;
+            --color-base-content: #1f2937;
+
+            /* Primary colors */
+            --color-primary: #3b82f6;
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            --color-primary-focus: #2563eb;
+            --color-primary-content: #ffffff;
+
+            /* Secondary colors */
+            --color-secondary: #8b5cf6;
+            --color-secondary-50: #f5f3ff;
+            --color-secondary-100: #ede9fe;
+            --color-secondary-200: #ddd6fe;
+            --color-secondary-300: #c4b5fd;
+            --color-secondary-400: #a78bfa;
+            --color-secondary-500: #8b5cf6;
+            --color-secondary-600: #7c3aed;
+            --color-secondary-700: #6d28d9;
+            --color-secondary-800: #5b21b6;
+            --color-secondary-900: #4c1d95;
+            --color-secondary-focus: #7c3aed;
+            --color-secondary-content: #ffffff;
+
+            /* Accent colors */
+            --color-accent: #f472b6;
+            --color-accent-50: #fdf2f8;
+            --color-accent-100: #fce7f3;
+            --color-accent-200: #fbcfe8;
+            --color-accent-300: #f9a8d4;
+            --color-accent-400: #f472b6;
+            --color-accent-500: #ec4899;
+            --color-accent-600: #db2777;
+            --color-accent-700: #be185d;
+            --color-accent-800: #9d174d;
+            --color-accent-900: #831843;
+            --color-accent-focus: #db2777;
+            --color-accent-content: #ffffff;
+
+            /* Neutral colors */
+            --color-neutral: #6b7280;
+            --color-neutral-50: #f9fafb;
+            --color-neutral-100: #f3f4f6;
+            --color-neutral-200: #e5e7eb;
+            --color-neutral-300: #d1d5db;
+            --color-neutral-400: #9ca3af;
+            --color-neutral-500: #6b7280;
+            --color-neutral-600: #4b5563;
+            --color-neutral-700: #374151;
+            --color-neutral-800: #1f2937;
+            --color-neutral-900: #111827;
+            --color-neutral-focus: #4b5563;
+            --color-neutral-content: #ffffff;
+
+            /* Info colors */
+            --color-info: #3b82f6;
+            --color-info-50: #eff6ff;
+            --color-info-100: #dbeafe;
+            --color-info-200: #bfdbfe;
+            --color-info-300: #93c5fd;
+            --color-info-400: #60a5fa;
+            --color-info-500: #3b82f6;
+            --color-info-600: #2563eb;
+            --color-info-700: #1d4ed8;
+            --color-info-800: #1e40af;
+            --color-info-900: #1e3a8a;
+            --color-info-focus: #2563eb;
+            --color-info-content: #ffffff;
+
+            /* Success colors */
+            --color-success: #10b981;
+            --color-success-50: #ecfdf5;
+            --color-success-100: #d1fae5;
+            --color-success-200: #a7f3d0;
+            --color-success-300: #6ee7b7;
+            --color-success-400: #34d399;
+            --color-success-500: #10b981;
+            --color-success-600: #059669;
+            --color-success-700: #047857;
+            --color-success-800: #065f46;
+            --color-success-900: #064e3b;
+            --color-success-focus: #059669;
+            --color-success-content: #ffffff;
+
+            /* Warning colors */
+            --color-warning: #f59e0b;
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-200: #fde68a;
+            --color-warning-300: #fcd34d;
+            --color-warning-400: #fbbf24;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            --color-warning-700: #b45309;
+            --color-warning-800: #92400e;
+            --color-warning-900: #78350f;
+            --color-warning-focus: #d97706;
+            --color-warning-content: #ffffff;
+
+            /* Error colors */
+            --color-error: #ef4444;
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-200: #fecaca;
+            --color-error-300: #fca5a5;
+            --color-error-400: #f87171;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            --color-error-700: #b91c1c;
+            --color-error-800: #991b1b;
+            --color-error-900: #7f1d1d;
+            --color-error-focus: #dc2626;
+            --color-error-content: #ffffff;
+        }
+    </style>
+
+
+    <style>
+        /* Dark theme */
+        .dark {
+            /* Base colors */
+            --color-base: #1f2937;
+            --color-base-50: #111827;
+            --color-base-100: #1f2937;
+            --color-base-200: #374151;
+            --color-base-300: #4b5563;
+            --color-base-400: #6b7280;
+            --color-base-500: #9ca3af;
+            --color-base-600: #d1d5db;
+            --color-base-700: #e5e7eb;
+            --color-base-800: #f3f4f6;
+            --color-base-900: #f9fafb;
+            --color-base-content: #f9fafb;
+
+            /* Primary colors */
+            --color-primary: #60a5fa;
+            --color-primary-50: #1e3a8a;
+            --color-primary-100: #1e40af;
+            --color-primary-200: #1d4ed8;
+            --color-primary-300: #2563eb;
+            --color-primary-400: #3b82f6;
+            --color-primary-500: #60a5fa;
+            --color-primary-600: #93c5fd;
+            --color-primary-700: #bfdbfe;
+            --color-primary-800: #dbeafe;
+            --color-primary-900: #eff6ff;
+            --color-primary-focus: #3b82f6;
+            --color-primary-content: #1f2937;
+
+            /* Secondary colors */
+            --color-secondary: #a78bfa;
+            --color-secondary-50: #4c1d95;
+            --color-secondary-100: #5b21b6;
+            --color-secondary-200: #6d28d9;
+            --color-secondary-300: #7c3aed;
+            --color-secondary-400: #8b5cf6;
+            --color-secondary-500: #a78bfa;
+            --color-secondary-600: #c4b5fd;
+            --color-secondary-700: #ddd6fe;
+            --color-secondary-800: #ede9fe;
+            --color-secondary-900: #f5f3ff;
+            --color-secondary-focus: #8b5cf6;
+            --color-secondary-content: #1f2937;
+
+            /* Accent colors */
+            --color-accent: #f472b6;
+            --color-accent-50: #831843;
+            --color-accent-100: #9d174d;
+            --color-accent-200: #be185d;
+            --color-accent-300: #db2777;
+            --color-accent-400: #ec4899;
+            --color-accent-500: #f472b6;
+            --color-accent-600: #f9a8d4;
+            --color-accent-700: #fbcfe8;
+            --color-accent-800: #fce7f3;
+            --color-accent-900: #fdf2f8;
+            --color-accent-focus: #ec4899;
+            --color-accent-content: #1f2937;
+
+            /* Neutral colors remain the same as light theme */
+
+            /* Info colors */
+            --color-info: #60a5fa;
+            --color-info-50: #1e3a8a;
+            --color-info-100: #1e40af;
+            --color-info-200: #1d4ed8;
+            --color-info-300: #2563eb;
+            --color-info-400: #3b82f6;
+            --color-info-500: #60a5fa;
+            --color-info-600: #93c5fd;
+            --color-info-700: #bfdbfe;
+            --color-info-800: #dbeafe;
+            --color-info-900: #eff6ff;
+            --color-info-focus: #3b82f6;
+            --color-info-content: #1f2937;
+
+            /* Success colors */
+            --color-success: #34d399;
+            --color-success-50: #064e3b;
+            --color-success-100: #065f46;
+            --color-success-200: #047857;
+            --color-success-300: #059669;
+            --color-success-400: #10b981;
+            --color-success-500: #34d399;
+            --color-success-600: #6ee7b7;
+            --color-success-700: #a7f3d0;
+            --color-success-800: #d1fae5;
+            --color-success-900: #ecfdf5;
+            --color-success-focus: #10b981;
+            --color-success-content: #1f2937;
+
+            /* Warning colors */
+            --color-warning: #fbbf24;
+            --color-warning-50: #78350f;
+            --color-warning-100: #92400e;
+            --color-warning-200: #b45309;
+            --color-warning-300: #d97706;
+            --color-warning-400: #f59e0b;
+            --color-warning-500: #fbbf24;
+            --color-warning-600: #fcd34d;
+            --color-warning-700: #fde68a;
+            --color-warning-800: #fef3c7;
+            --color-warning-900: #fffbeb;
+            --color-warning-focus: #f59e0b;
+            --color-warning-content: #1f2937;
+
+            /* Error colors */
+            --color-error: #f87171;
+            --color-error-50: #7f1d1d;
+            --color-error-100: #991b1b;
+            --color-error-200: #b91c1c;
+            --color-error-300: #dc2626;
+            --color-error-400: #ef4444;
+            --color-error-500: #f87171;
+            --color-error-600: #fca5a5;
+            --color-error-700: #fecaca;
+            --color-error-800: #fee2e2;
+            --color-error-900: #fef2f2;
+            --color-error-focus: #ef4444;
+            --color-error-content: #1f2937;
+        }
+    </style>
+
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ...{ "transparent": "transparent", "current": "currentColor", "black": "#000000", "white": "#ffffff", "gray": { "50": "#f9fafb", "100": "#f3f4f6", "200": "#e5e7eb", "300": "#d1d5db", "400": "#9ca3af", "500": "#6b7280", "600": "#4b5563", "700": "#374151", "800": "#1f2937", "900": "#111827" }, "red": { "50": "#fef2f2", "100": "#fee2e2", "200": "#fecaca", "300": "#fca5a5", "400": "#f87171", "500": "#ef4444", "600": "#dc2626", "700": "#b91c1c", "800": "#991b1b", "900": "#7f1d1d" }, "yellow": { "50": "#fffbeb", "100": "#fef3c7", "200": "#fde68a", "300": "#fcd34d", "400": "#fbbf24", "500": "#f59e0b", "600": "#d97706", "700": "#b45309", "800": "#92400e", "900": "#78350f" }, "green": { "50": "#ecfdf5", "100": "#d1fae5", "200": "#a7f3d0", "300": "#6ee7b7", "400": "#34d399", "500": "#10b981", "600": "#059669", "700": "#047857", "800": "#065f46", "900": "#064e3b" }, "blue": { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }, "indigo": { "50": "#eef2ff", "100": "#e0e7ff", "200": "#c7d2fe", "300": "#a5b4fc", "400": "#818cf8", "500": "#6366f1", "600": "#4f46e5", "700": "#4338ca", "800": "#3730a3", "900": "#312e81" }, "purple": { "50": "#f5f3ff", "100": "#ede9fe", "200": "#ddd6fe", "300": "#c4b5fd", "400": "#a78bfa", "500": "#8b5cf6", "600": "#7c3aed", "700": "#6d28d9", "800": "#5b21b6", "900": "#4c1d95" }, "pink": { "50": "#fdf2f8", "100": "#fce7f3", "200": "#fbcfe8", "300": "#f9a8d4", "400": "#f472b6", "500": "#ec4899", "600": "#db2777", "700": "#be185d", "800": "#9d174d", "900": "#831843" } },
+                        ...{ "primary": { "50": "var(--color-primary-50)", "100": "var(--color-primary-100)", "200": "var(--color-primary-200)", "300": "var(--color-primary-300)", "400": "var(--color-primary-400)", "500": "var(--color-primary-500)", "600": "var(--color-primary-600)", "700": "var(--color-primary-700)", "800": "var(--color-primary-800)", "900": "var(--color-primary-900)", "DEFAULT": "var(--color-primary)", "focus": "var(--color-primary-focus)", "content": "var(--color-primary-content)" }, "secondary": { "50": "var(--color-secondary-50)", "100": "var(--color-secondary-100)", "200": "var(--color-secondary-200)", "300": "var(--color-secondary-300)", "400": "var(--color-secondary-400)", "500": "var(--color-secondary-500)", "600": "var(--color-secondary-600)", "700": "var(--color-secondary-700)", "800": "var(--color-secondary-800)", "900": "var(--color-secondary-900)", "DEFAULT": "var(--color-secondary)", "focus": "var(--color-secondary-focus)", "content": "var(--color-secondary-content)" }, "accent": { "50": "var(--color-accent-50)", "100": "var(--color-accent-100)", "200": "var(--color-accent-200)", "300": "var(--color-accent-300)", "400": "var(--color-accent-400)", "500": "var(--color-accent-500)", "600": "var(--color-accent-600)", "700": "var(--color-accent-700)", "800": "var(--color-accent-800)", "900": "var(--color-accent-900)", "DEFAULT": "var(--color-accent)", "focus": "var(--color-accent-focus)", "content": "var(--color-accent-content)" }, "neutral": { "50": "var(--color-neutral-50)", "100": "var(--color-neutral-100)", "200": "var(--color-neutral-200)", "300": "var(--color-neutral-300)", "400": "var(--color-neutral-400)", "500": "var(--color-neutral-500)", "600": "var(--color-neutral-600)", "700": "var(--color-neutral-700)", "800": "var(--color-neutral-800)", "900": "var(--color-neutral-900)", "DEFAULT": "var(--color-neutral)", "focus": "var(--color-neutral-focus)", "content": "var(--color-neutral-content)" }, "info": { "50": "var(--color-info-50)", "100": "var(--color-info-100)", "200": "var(--color-info-200)", "300": "var(--color-info-300)", "400": "var(--color-info-400)", "500": "var(--color-info-500)", "600": "var(--color-info-600)", "700": "var(--color-info-700)", "800": "var(--color-info-800)", "900": "var(--color-info-900)", "DEFAULT": "var(--color-info)", "focus": "var(--color-info-focus)", "content": "var(--color-info-content)" }, "success": { "50": "var(--color-success-50)", "100": "var(--color-success-100)", "200": "var(--color-success-200)", "300": "var(--color-success-300)", "400": "var(--color-success-400)", "500": "var(--color-success-500)", "600": "var(--color-success-600)", "700": "var(--color-success-700)", "800": "var(--color-success-800)", "900": "var(--color-success-900)", "DEFAULT": "var(--color-success)", "focus": "var(--color-success-focus)", "content": "var(--color-success-content)" }, "warning": { "50": "var(--color-warning-50)", "100": "var(--color-warning-100)", "200": "var(--color-warning-200)", "300": "var(--color-warning-300)", "400": "var(--color-warning-400)", "500": "var(--color-warning-500)", "600": "var(--color-warning-600)", "700": "var(--color-warning-700)", "800": "var(--color-warning-800)", "900": "var(--color-warning-900)", "DEFAULT": "var(--color-warning)", "focus": "var(--color-warning-focus)", "content": "var(--color-warning-content)" }, "error": { "50": "var(--color-error-50)", "100": "var(--color-error-100)", "200": "var(--color-error-200)", "300": "var(--color-error-300)", "400": "var(--color-error-400)", "500": "var(--color-error-500)", "600": "var(--color-error-600)", "700": "var(--color-error-700)", "800": "var(--color-error-800)", "900": "var(--color-error-900)", "DEFAULT": "var(--color-error)", "focus": "var(--color-error-focus)", "content": "var(--color-error-content)" }, "danger": { "50": "var(--color-error-50)", "100": "var(--color-error-100)", "200": "var(--color-error-200)", "300": "var(--color-error-300)", "400": "var(--color-error-400)", "500": "var(--color-error-500)", "600": "var(--color-error-600)", "700": "var(--color-error-700)", "800": "var(--color-error-800)", "900": "var(--color-error-900)", "DEFAULT": "var(--color-error)", "focus": "var(--color-error-focus)", "content": "var(--color-error-content)" }, "failure": { "50": "var(--color-error-50)", "100": "var(--color-error-100)", "200": "var(--color-error-200)", "300": "var(--color-error-300)", "400": "var(--color-error-400)", "500": "var(--color-error-500)", "600": "var(--color-error-600)", "700": "var(--color-error-700)", "800": "var(--color-error-800)", "900": "var(--color-error-900)", "DEFAULT": "var(--color-error)", "focus": "var(--color-error-focus)", "content": "var(--color-error-content)" } },
+                    },
+                },
+            },
+            variants: {
+                extend: {
+                    backgroundColor: ['active', 'group-hover'],
+                    textColor: ['active', 'group-hover'],
+                },
+            },
+            plugins: [],
+        };
+    </script>
+
+</head>
+
+<body class="h-full text-base-content">
+    <div class="min-h-screen bg-neutral-50 flex">
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-button" class="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md">
+            <i class="fa-solid fa-bars text-neutral-700"></i>
+        </button>
+        <!-- Overlay for mobile menu -->
+        <div id="overlay" class="overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="mobile-menu fixed md:relative w-64 h-screen bg-white border-r border-neutral-200 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+            <div class="p-4 border-b border-neutral-200">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-droplet text-2xl text-neutral-700"></i>
+                    <span class="text-xl">WaterFlow</span>
+                </div>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="nav-item active flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100">
+                            <i class="fa-solid fa-gauge w-5 text-center"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100">
+                            <i class="fa-solid fa-truck-fast w-5 text-center"></i>
+                            <span>Live Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100">
+                            <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
+                            <span>Order History</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100">
+                            <i class="fa-solid fa-wallet w-5 text-center"></i>
+                            <span>Wallet & Payments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100">
+                            <i class="fa-solid fa-message w-5 text-center"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100">
+                            <i class="fa-solid fa-user w-5 text-center"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100">
+                            <i class="fa-solid fa-gift w-5 text-center"></i>
+                            <span>Rewards</span>
+                        </a>
+                    </li>
+                    <li class="mt-8">
+                        <a href="#" class="nav-item flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-100 text-red-500">
+                            <i class="fa-solid fa-right-from-bracket w-5 text-center"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Header -->
+            <header id="header" class="w-full bg-white border-b border-neutral-200 px-6 py-4 sticky top-0 z-30">
+                <div class="max-w-7xl mx-auto flex flex-row-reverse justify-between items-center">
+                    <div class="flex items-center gap-2 md:hidden">
+                        <i class="fa-solid fa-droplet text-2xl text-neutral-700"></i>
+                        <span class="text-xl">Hydro Hub</span>
+                    </div>
+                    <div class="flex flex-row-reverse items-center gap-4">
+                        <div class="relative">
+                          <button id="notifications-btn" class="p-2 relative">
+                            <i class="fa-regular fa-bell text-neutral-600"></i>
+                            <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">3</span>
+                          </button>
+                        </div>
+                        <div class="relative">
+                          <button id="profile-btn">
+                            <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&amp;seed=123" alt="User avatar" class="w-10 h-10 rounded-full cursor-pointer">
+                          </button>
+                        </div>
+                      </div>
+
+                    <!-- Notifications Modal -->
+                    <div id="notifications-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+                        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <!-- Background overlay -->
+                        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                        </div>
+                        
+                        <!-- Modal content -->
+                        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" style="position: fixed; top: 4rem; right: 1rem;">
+                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">Notifications</h3>
+                                <button type="button" class="notifications-close-btn text-gray-400 hover:text-gray-500">
+                                <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                            <div class="max-h-96 overflow-y-auto">
+                                <!-- Notification items -->
+                                <div class="border-b border-gray-200 py-3">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 bg-blue-100 p-2 rounded-full">
+                                    <i class="fa-solid fa-bell text-blue-600"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900">New order received</p>
+                                    <p class="text-sm text-gray-500">Your water delivery order #1234 has been confirmed</p>
+                                    <p class="text-xs text-gray-400 mt-1">2 minutes ago</p>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="border-b border-gray-200 py-3">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 bg-green-100 p-2 rounded-full">
+                                    <i class="fa-solid fa-tag text-green-600"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900">Special offer</p>
+                                    <p class="text-sm text-gray-500">Get 15% off on your next order with code H2O15</p>
+                                    <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="border-b border-gray-200 py-3">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 bg-yellow-100 p-2 rounded-full">
+                                    <i class="fa-solid fa-exclamation text-yellow-600"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900">Low water alert</p>
+                                    <p class="text-sm text-gray-500">Your water level is below 20%</p>
+                                    <p class="text-xs text-gray-400 mt-1">5 hours ago</p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-500">View all notifications</a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+  
+                    <!-- Profile Modal -->
+                    <div id="profile-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+                        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <!-- Background overlay -->
+                        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                        </div>
+                        
+                        <!-- Modal content -->
+                        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xs sm:w-full" style="position: fixed; top: 4rem; right: 1rem;">
+                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="flex justify-end">
+                                <button type="button" class="profile-close-btn text-gray-400 hover:text-gray-500">
+                                <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                            <div class="text-center">
+                                <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&amp;seed=123" alt="User avatar" class="w-20 h-20 rounded-full mx-auto mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">Sarah Johnson</h3>
+                                <p class="text-sm text-gray-500">sarah@example.com</p>
+                            </div>
+                            <div class="mt-6 space-y-2">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg">
+                                <i class="fa-solid fa-user mr-2"></i> Profile
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg">
+                                <i class="fa-solid fa-cog mr-2"></i> Settings
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg">
+                                <i class="fa-solid fa-wallet mr-2"></i> Billing
+                                </a>
+                                <div class="border-t border-gray-200 my-2"></div>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 rounded-lg">
+                                <i class="fa-solid fa-right-from-bracket mr-2"></i> Sign out
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main id="dashboard" class="max-w-7xl mx-auto px-6 py-8">
+                <!-- Welcome Section -->
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h1 class="text-2xl mb-1">Welcome back, Sarah!</h1>
+                        <p class="text-neutral-600">Here's your water consumption overview</p>
+                    </div>
+                    <button class="bg-neutral-900 text-white px-6 py-2 rounded-lg">
+                        <a href="order-form.html">Order Water</a>
+                    </button>
+                </div>
+
+                <!-- Main Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Wallet Balance -->
+                    <div class="bg-white p-6 rounded-xl border border-neutral-200">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-neutral-600 mb-1">Wallet Balance</p>
+                                <h2 class="text-2xl">$245.00</h2>
+                            </div>
+                            <button class="px-4 py-1 border border-neutral-300 rounded-lg text-sm">
+                                Deposit
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Forecast Card -->
+                    <div class="bg-neutral-900 text-white p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-neutral-400 mb-1">Water Forecast</p>
+                                <h2 class="text-xl">Will Run Out In:</h2>
+                                <p class="text-3xl mt-2">5 Days</p>
+                            </div>
+                            <i class="fa-solid fa-droplet text-2xl"></i>
+                        </div>
+                        <button class="w-full bg-white text-neutral-900 py-2 rounded-lg mt-4">
+                            Set Auto Refill
+                        </button>
+                    </div>
+
+                    <!-- Delivery Stats -->
+                    <div class="bg-white p-6 rounded-xl border border-neutral-200">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-neutral-600 mb-1">Total Orders</p>
+                                <h3 class="text-2xl">24</h3>
+                            </div>
+                            <div>
+                                <p class="text-neutral-600 mb-1">This Month</p>
+                                <h3 class="text-2xl">120L</h3>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="text-neutral-600 mb-1">Delivery Rating</p>
+                                <div class="flex items-center gap-1">
+                                    <i class="fa-solid fa-star text-neutral-900"></i>
+                                    <span class="text-xl">4.8</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consumption Chart -->
+                <div class="bg-white p-6 rounded-xl border border-neutral-200 mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg">Water Order stats</h3>
+                        <select class="border border-neutral-300 rounded-lg px-3 py-1">
+                            <option>Week</option>
+                            <option>Month</option>
+                            <option>Yearly</option>
+                        </select>
+                    </div>
+                    <div class="h-[300px] bg-neutral-100 rounded-lg flex items-center justify-center">
+                        <p class="text-blue-900">Display graph here</p>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Quick Actions -->
+                    <div class="bg-white p-6 rounded-xl border border-neutral-200">
+                        <h3 class="text-lg mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button
+                                class="w-full flex items-center justify-between px-4 py-2 border border-neutral-200 rounded-lg hover:bg-neutral-50">
+                                <a href="order-form.html"><span>Order Water</span></a>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button
+                                class="w-full flex items-center justify-between px-4 py-2 border border-neutral-200 rounded-lg hover:bg-neutral-50">
+                                <span>View Orders</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button
+                                class="w-full flex items-center justify-between px-4 py-2 border border-neutral-200 rounded-lg hover:bg-neutral-50">
+                                <span>Top Up Wallet</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button
+                                class="w-full flex items-center justify-between px-4 py-2 border border-neutral-200 rounded-lg hover:bg-neutral-50">
+                                <span>Enable Smart Alerts</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="md:col-span-2 bg-white p-6 rounded-xl border border-neutral-200">
+                        <h3 class="text-lg mb-4">Recent Notifications</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-3 bg-neutral-50 rounded-lg">
+                                <i class="fa-solid fa-bell-exclamation text-neutral-700"></i>
+                                <div>
+                                    <p>Low Water Alert</p>
+                                    <p class="text-sm text-neutral-600">Your water supply is running low. Consider ordering
+                                        soon.</p>
+                                    <p class="text-sm text-neutral-400 mt-1">2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-3 bg-neutral-50 rounded-lg">
+                                <i class="fa-solid fa-tag text-neutral-700"></i>
+                                <div>
+                                    <p>Special Offer</p>
+                                    <p class="text-sm text-neutral-600">Get 10% off on your next water delivery order.</p>
+                                    <p class="text-sm text-neutral-400 mt-1">1 day ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('translate-x-0');
+            overlay.classList.toggle('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('translate-x-0');
+            overlay.classList.add('hidden');
+        });
+        
+        // Highlight active nav item
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Close mobile menu when an item is clicked
+                if (window.innerWidth < 768) {
+                    sidebar.classList.remove('translate-x-0');
+                    overlay.classList.add('hidden');
+                }
+            });
+        });
+
+        // Notification modal functionality
+        const notificationsBtn = document.getElementById('notifications-btn');
+        const notificationsModal = document.getElementById('notifications-modal');
+        const notificationsCloseBtn = document.querySelector('.notifications-close-btn');
+        
+        notificationsBtn.addEventListener('click', () => {
+            notificationsModal.classList.remove('hidden');
+        });
+        
+        notificationsCloseBtn.addEventListener('click', () => {
+            notificationsModal.classList.add('hidden');
+        });
+        
+        // Profile modal functionality
+        const profileBtn = document.getElementById('profile-btn');
+        const profileModal = document.getElementById('profile-modal');
+        const profileCloseBtn = document.querySelector('.profile-close-btn');
+        
+        profileBtn.addEventListener('click', () => {
+            profileModal.classList.remove('hidden');
+        });
+        
+        profileCloseBtn.addEventListener('click', () => {
+            profileModal.classList.add('hidden');
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === notificationsModal) {
+            notificationsModal.classList.add('hidden');
+            }
+            if (e.target === profileModal) {
+            profileModal.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>

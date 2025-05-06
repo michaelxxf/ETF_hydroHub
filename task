@@ -1,0 +1,81 @@
+UI Code Review & Enhancement
+
+I will be sending you code (mostly written using Tailwind CSS) from a UI project.
+
+### 🔧 Your Tasks:
+1. **Analyze and enhance the code** to make it **fully responsive**, with **mobile-first design principles**.
+2. Ensure the layout is **modern and visually appealing** for both **mobile** and **desktop** views.
+3. You are allowed to return the updated code in either **Tailwind CSS** or **traditional CSS**, whichever gives the best structure.
+4. Use **clear, well-organized layout decisions** based on best practices.
+
+---
+
+### 📱 Mobile Design Expectations:
+- Design must **default to mobile-first**, and then expand to desktop using **media queries**.
+- Add or fix **hamburger menu icon + toggle functionality** for **mobile devices only**, so users can expand/collapse the **Aside Navigation Bar**.
+- Ensure **interactive UI components** (e.g., buttons, modals, forms, etc) are appropriately sized and spaced for touch devices.
+- Increase **text sizes and padding** for small screens for readability.
+
+---
+
+### 🖥 Desktop Design Expectations:
+- Ensure that layout adjusts gracefully with larger screen widths using media queries (`@media (min-width:...)`).
+- Use **multi-column layouts** when needed (e.g., summary cards, tables).
+- Maintain a clean, professional look with appropriate white space.
+
+---
+
+📚 Global UI Rules
+Always include an Aside Navigation Bar on every page.
+
+Use this default nav structure and automatically highlight the active page based on the current page:
+
+🧭 Aside Navigation Bar Structure (Sticky Left Sidebar)
+Dashboard
+
+Live Orders
+
+Order History
+
+Wallet & Payments
+
+Messages & Notifications
+
+Profile
+
+Rewards
+
+Logout
+
+Notes:
+
+Highlight the active page visually (e.g., using bg-blue-100 or text-blue-600 font-bold).
+
+For mobile, hide the nav bar by default and toggle it with a hamburger icon.
+
+Use fixed or sticky position with proper z-index handling.
+
+The aside should collapse neatly and expand on icon tap.
+
+---
+
+### 🔁 Consistency:
+- Maintain or improve the **design logic and layout hierarchy**.
+- Preserve **functionality and features** already present (e.g., buttons, input fields, ad containers. etc).
+- You are allowed to **enhance UX and visuals** if it improves usability.
+
+---
+
+✅ After analyzing each code submission I send, please return optimized code:
+
+Fully responsive
+
+With aside navigation added (if missing)
+
+Active nav state handled
+
+Hamburger menu on mobile
+
+UI improved where necessary
+
+✅ Please return optimized code after analyzing each submission I send. Let me know what changes you made and why if possible.

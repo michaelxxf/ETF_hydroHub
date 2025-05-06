@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title|default("Hydro Hubs - Sign Up") }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <style>
+    * {
+      font-family: "Inter", sans-serif;
+    }
+    .toggle-password i.fa-eye-slash {
+      display: none;
+    }
+    .toggle-password.show-password i.fa-eye {
+      display: none;
+    }
+    .toggle-password.show-password i.fa-eye-slash {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <!-- Header -->
+  <header class="fixed w-full bg-gray-200 shadow-sm z-50">
+    <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <img src="../../../static/images/hydrohub.png" alt="Hydro Hubs" class="h-16">
+      </div>
+      <div id="step-indicator" class="text-sm text-gray-600">Step 1 of 2</div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-16 pb-8 min-h-screen">
+    <!-- Progress Stepper -->
+    <div id="progress-stepper" class="container mx-auto px-4 py-8">
+      <div class="flex items-center justify-center mb-8">
+        <div class="flex items-center">
+          <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white">1</div>
+          <div class="h-1 w-16 bg-blue-600"></div>
+          <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">2</div>
+        </div>
+      </div>
+      <p class="text-center text-sm text-gray-500">Step 1 of 2 • Estimated time: 3-5 minutes</p>
+    </div>
+
+   
+
+    <!-- Forms Container -->
+    <div class="container mx-auto px-4 max-w-md">
+      <!-- Step 1: Account Creation -->
+      <div id="step1-form" class="bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-2xl font-bold mb-6">Create Your Account</h1>
+        <form id="account-form" action="{{ url_for('customer.signup') }}" method="POST" class="space-y-4">
+          <!-- Add CSRF protection (install Flask-WTF later if needed) -->
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="space-y-2">
+            <label for="first_name" class="block text-sm font-medium">First Name</label>
+            <div class="relative">
+              <i class="fa-regular fa-user absolute left-3 top-3 text-gray-400"></i>
+              <input type="text" id="first_name" name="first_name"
+                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter First name" required>
+            </div>
+
+            <label for="first_name" class="block text-sm font-medium">Last Name</label>
+            <div class="relative">
+              <i class="fa-regular fa-user absolute left-3 top-3 text-gray-400"></i>
+              <input type="text" id="last_name" name="last_name"
+                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter Last name" required>
+            </div>
+            <p id="name-error" class="text-red-500 text-xs mt-1 hidden"></p>
+          </div>
+
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-medium">Email</label>
+            <div class="relative">
+              <i class="fa-regular fa-envelope absolute left-3 top-3 text-gray-400"></i>
+              <input type="email" id="email" name="email"
+                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter email" required>
+            </div>
+            <p id="email-error" class="text-red-500 text-xs mt-1 hidden"></p>
+          </div>
+
+          <div class="space-y-2">
+            <label for="password" class="block text-sm font-medium">Password</label>
+            <div class="relative">
+              <i class="fa-regular fa-lock absolute left-3 top-3 text-gray-400"></i>
+              <input type="password" id="password" name="password"
+                class="w-full pl-10 pr-10 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter password" required>
+              <button type="button" id="toggle-password" class="toggle-password absolute right-3 top-3 text-gray-400">
+                <i class="fa-regular fa-eye"></i>
+                <i class="fa-regular fa-eye-slash"></i>
+              </button>
+            </div>
+
+            <label for="confirm_password" class="block text-sm font-medium">Connfirm Password</label>
+            <div class="relative">
+              <i class="fa-regular fa-lock absolute left-3 top-3 text-gray-400"></i>
+              <input type="confirm_password" id="confirm_password" name="confirm_password"
+                class="w-full pl-10 pr-10 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Confirm password" required>
+              <button type="button" id="toggle-password" class="toggle-password absolute right-3 top-3 text-gray-400">
+                <i class="fa-regular fa-eye"></i>
+                <i class="fa-regular fa-eye-slash"></i>
+              </button>
+            </div>
+            <p id="password-error" class="text-red-500 text-xs mt-1 hidden"></p>
+          </div>
+
+          <button type="submit" id="next-btn"
+            class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+            Continue to Survey
+            <i class="fa-solid fa-arrow-right ml-2"></i>
+          </button>
+        </form>
+        
+         <!-- Add flash message display -->
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flashes">
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% endwith %}
+        </div>
+      <!-- Step 2: Survey (initially hidden) -->
+      <div id="step2-form" class="hidden space-y-8">
+        <!-- Intro Message -->
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-semibold mb-3">Quick Survey</h1>
+          <p class="text-gray-600">
+            Take a moment to fill out our 2-minute survey to enhance your experience with us. Our AI uses this
+            to forecast your water usage and make sure you never run out.
+          </p>
+        </div>
+
+        <form id="survey-form" class="space-y-8">
+          <!-- Tank Setup Section -->
+          <section class="bg-white rounded-xl p-6 shadow-sm">
+            <h2 class="text-lg font-semibold mb-6">About Your Water Setup</h2>
+            <div class="space-y-6">
+              <div class="grid gap-4">
+                <label class="block">
+                  <span class="text-gray-700">What is your tank's total capacity?</span>
+                  <div class="mt-1 relative">
+                    <input type="number" id="tank-capacity" name="tankCapacity"
+                      class="w-full rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                      placeholder="2000">
+                    <span class="absolute right-3 top-2 text-gray-500">L</span>
+                  </div>
+                </label>
+
+                <div>
+                  <span class="text-gray-700">Do you have a secondary water source?</span>
+                  <div class="mt-2 flex gap-4">
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="secondarySource" value="yes" class="text-blue-600">
+                      <span class="ml-2">Yes</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                      <input type="radio" name="secondarySource" value="no" class="text-blue-600">
+                      <span class="ml-2">No</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Household Section -->
+          <section class="bg-white rounded-xl p-6 shadow-sm">
+            <h2 class="text-lg font-semibold mb-6">Your Home</h2>
+            <div class="space-y-6">
+              <div>
+                <label class="block">
+                  <span class="text-gray-700">How many people live/work here?</span>
+                  <div class="mt-2 flex items-center gap-2">
+                    <button type="button" id="decrease-household"
+                      class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50">
+                      -
+                    </button>
+                    <input type="number" id="household-size" name="householdSize" value="1" readonly
+                      class="w-20 text-center rounded-lg border border-gray-300">
+                    <button type="button" id="increase-household"
+                      class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-50">
+                      +
+                    </button>
+                  </div>
+                </label>
+              </div>
+
+              <div>
+                <span class="text-gray-700 block mb-3">Which water-using appliances do you have?</span>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="appliances-container">
+                  <!-- Appliances will be added by JavaScript -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Usage Habits Section -->
+          <section class="bg-white rounded-xl p-6 shadow-sm">
+            <h2 class="text-lg font-semibold mb-6">Usage Habits</h2>
+            <div class="space-y-6">
+              <div>
+                <label class="block">
+                  <span class="text-gray-700">How many days' notice would you prefer before running out?</span>
+                  <div class="mt-2 relative">
+                    <input type="number" id="notice-days" name="noticeDays" min="1" max="10" value="3"
+                      class="w-full rounded-lg border border-gray-300">
+                    <span class="absolute right-3 top-2 text-gray-500">days</span>
+                  </div>
+                </label>
+              </div>
+
+              <div>
+                <span class="text-gray-700 block mb-3">How often do you request a refill?</span>
+                <div class="space-y-2" id="refill-frequency-container">
+                  <!-- Refill options will be added by JavaScript -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Preferences Section -->
+          <section class="bg-white rounded-xl p-6 shadow-sm">
+            <h2 class="text-lg font-semibold mb-6">Preferences</h2>
+            <div class="space-y-6">
+              <div>
+                <span class="text-gray-700 block mb-3">What's your preferred notification channel?</span>
+                <div class="grid grid-cols-2 gap-3" id="notification-channels-container">
+                  <!-- Notification options will be added by JavaScript -->
+                </div>
+              </div>
+
+              <div>
+                <span class="text-gray-700 block mb-3">Would you like automatic ordering when you're low?</span>
+                <div class="space-y-2">
+                  <label class="flex items-center opacity-50 cursor-not-allowed">
+                    <input type="radio" name="autoOrder" value="yes" class="text-blue-600" disabled checked>
+                    <span class="ml-2">Yes (Coming Soon)</span>
+                  </label>
+                  <label class="flex items-center">
+                    <input type="radio" name="autoOrder" value="no" class="text-blue-600">
+                    <span class="ml-2">No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Action Buttons -->
+          <div class="flex justify-between items-center pt-4">
+            <button type="button" id="skip-survey"
+              class="text-gray-600 hover:text-gray-800 cursor-pointer">
+              Skip Survey <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+            <div class="flex gap-4">
+              <button type="button" id="back-btn"
+                class="px-6 py-3 rounded-lg border border-gray-300 hover:bg-gray-50">
+                Back
+              </button>
+              <button type="submit" id="submit-survey"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200">
+                Finish & Go to Dashboard
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-8">
+    <div class="container mx-auto px-4 text-center text-sm text-gray-500">
+      &copy; <span id="current-year"></span> HydroHub. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Form data object to store all values
+    const formData = {
+      step1: {},
+      step2: {}
+    };
+
+    // Current step tracking
+    let currentStep = 1;
+
+    // Initialize form options
+    const appliances = [
+      { name: 'Showers', icon: 'fa-shower' },
+      { name: 'Faucets', icon: 'fa-faucet' },
+      { name: 'Dishwasher', icon: 'fa-sink' },
+      { name: 'Washing Machine', icon: 'fa-washing-machine' },
+      { name: 'Sprinklers', icon: 'fa-sprinkler' },
+      { name: 'Pool', icon: 'fa-water-ladder' }
+    ];
+
+    const refillFrequencies = [
+      'Weekly',
+      'Once every 2 weeks',
+      'Monthly',
+      'Less often'
+    ];
+
+    const notificationChannels = [
+      { name: 'SMS', icon: 'fa-message' },
+      { name: 'Email', icon: 'fa-envelope' },
+      { name: 'App Push', icon: 'fa-bell' },
+      { name: 'Voice Call', icon: 'fa-phone' }
+    ];
+
+    // Initialize the form with dynamic options
+    function initializeForm() {
+      // Add appliances checkboxes
+      const appliancesContainer = document.getElementById('appliances-container');
+      appliances.forEach(appliance => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center p-3 border rounded-lg hover:bg-gray-50';
+        label.innerHTML = `
+          <input type="checkbox" name="appliances" value="${appliance.name}" class="text-blue-600 rounded">
+          <i class="fa-solid ${appliance.icon} ml-3 mr-2"></i>
+          <span>${appliance.name}</span>
+        `;
+        appliancesContainer.appendChild(label);
+      });
+
+      // Add refill frequency radio buttons
+      const refillContainer = document.getElementById('refill-frequency-container');
+      refillFrequencies.forEach(frequency => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center';
+        label.innerHTML = `
+          <input type="radio" name="refillFrequency" value="${frequency}" class="text-blue-600">
+          <span class="ml-2">${frequency}</span>
+        `;
+        refillContainer.appendChild(label);
+      });
+
+      // Add notification channels checkboxes
+      const notificationsContainer = document.getElementById('notification-channels-container');
+      notificationChannels.forEach(channel => {
+        const label = document.createElement('label');
+        label.className = 'flex items-center p-3 border rounded-lg hover:bg-gray-50';
+        label.innerHTML = `
+          <input type="checkbox" name="notificationChannels" value="${channel.name}" class="text-blue-600 rounded">
+          <i class="fa-solid ${channel.icon} ml-3 mr-2"></i>
+          <span>${channel.name}</span>
+        `;
+        notificationsContainer.appendChild(label);
+      });
+    }
+
+    // Toggle password visibility
+    document.getElementById('toggle-password').addEventListener('click', function() {
+      this.classList.toggle('show-password');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirm_password');
+      passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+      confirmPasswordInput.type = confirmPasswordInput.type === 'confirm_password' ? 'text' : 'confirm_password';
+    });
+
+    // Household size controls
+    document.getElementById('increase-household').addEventListener('click', function() {
+      const input = document.getElementById('household-size');
+      input.value = parseInt(input.value) + 1;
+    });
+
+    document.getElementById('decrease-household').addEventListener('click', function() {
+      const input = document.getElementById('household-size');
+      if (input.value > 1) {
+        input.value = parseInt(input.value) - 1;
+      }
+    });
+
+    // Form validation for step 1
+    function validateStep1() {
+      let isValid = true;
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm_password = document.getElementById('confirm_password').value
+
+      // Reset errors
+      document.getElementById('username-error').classList.add('hidden');
+      document.getElementById('email-error').classList.add('hidden');
+      document.getElementById('password-error').classList.add('hidden');
+      
+
+      // Validate username
+      if (!username) {
+        document.getElementById('username-error').textContent = 'Username is required';
+        document.getElementById('username-error').classList.remove('hidden');
+        isValid = false;
+      }
+
+      // Validate email
+      if (!email) {
+        document.getElementById('email-error').textContent = 'Email is required';
+        document.getElementById('email-error').classList.remove('hidden');
+        isValid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById('email-error').textContent = 'Please enter a valid email';
+        document.getElementById('email-error').classList.remove('hidden');
+        isValid = false;
+      }
+
+      // Validate password
+      if (!password) {
+        document.getElementById('password-error').textContent = 'Password is required';
+        document.getElementById('password-error').classList.remove('hidden');
+        isValid = false;
+      } else if (password.length < 8) {
+        document.getElementById('password-error').textContent = 'Password must be at least 8 characters';
+        document.getElementById('password-error').classList.remove('hidden');
+        isValid = false;
+      } else if (password == confirm_password) {
+        document.getElementById('password-error').textContent = 'Password does not match';
+        document.getElementById('password-error').classList.remove('hidden');
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    // Navigation between steps
+    document.getElementById('next-btn').addEventListener('click', function() {
+      if (validateStep1()) {
+        // Save step 1 data
+        formData.step1 = {
+          username: document.getElementById('username').value,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        };
+
+        // Switch to step 2
+        document.getElementById('step1-form').classList.add('hidden');
+        document.getElementById('step2-form').classList.remove('hidden');
+        document.getElementById('progress-stepper').classList.add('hidden');
+        document.getElementById('step-indicator').textContent = 'Step 2 of 2';
+        currentStep = 2;
+      }
+    });
+
+    document.getElementById('back-btn').addEventListener('click', function() {
+      // Switch to step 1
+      document.getElementById('step1-form').classList.remove('hidden');
+      document.getElementById('step2-form').classList.add('hidden');
+      document.getElementById('progress-stepper').classList.remove('hidden');
+      document.getElementById('step-indicator').textContent = 'Step 1 of 2';
+      currentStep = 1;
+    });
+
+    // Skip survey
+    document.getElementById('skip-survey').addEventListener('click', function() {
+      if (confirm('Are you sure you want to skip the survey? You can complete it later in your account settings.')) {
+        submitForm(true);
+      }
+    });
+
+    // Form submission
+    // Modify your form submission handler
+document.getElementById('account-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const submitBtn = document.getElementById('next-btn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Registering... <i class="fa-solid fa-spinner fa-spin ml-2"></i>';
+    
+    try {
+        const response = await fetch('signup', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+            // Show success message
+            showAlert('success', result.message);
+            
+            // Switch to survey section
+            document.getElementById('step1-form').classList.add('hidden');
+            document.getElementById('step2-form').classList.remove('hidden');
+            document.getElementById('progress-stepper').classList.add('hidden');
+            document.getElementById('step-indicator').textContent = 'Step 2 of 2';
+            
+            // Store registration data for later use
+            sessionStorage.setItem('registrationData', JSON.stringify({
+                email: formData.get('email'),
+                firstName: formData.get('first_name'),
+                lastName: formData.get('last_name'),
+                Fullname: lastName + firstName,
+                // Add other fields you need
+            }));
+        } else {
+            showAlert('error', result.message);
+        }
+    } catch (error) {
+        showAlert('error', 'An unexpected error occurred');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Continue to Survey <i class="fa-solid fa-arrow-right ml-2"></i>';
+    }
+});
+
+// Helper function to show alerts
+function showAlert(type, message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `fixed top-4 right-4 p-4 rounded-md shadow-lg ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+    } text-white`;
+    alertDiv.textContent = message;
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+
+
+
+    // Replace your submitForm function with:
+    document.getElementById('survey-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-survey');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Processing... <i class="fa-solid fa-spinner fa-spin ml-2"></i>';
+    
+    try {
+        // Get registration data from session storage
+        const registrationData = JSON.parse(sessionStorage.getItem('registrationData'));
+        
+        // Get survey data
+        const surveyData = {
+          tankCapacity: document.getElementById('tank-capacity').value,
+          secondarySource: document.querySelector('input[name="secondarySource"]:checked')?.value,
+          householdSize: document.getElementById('household-size').value,
+          appliances: Array.from(document.querySelectorAll('input[name="appliances"]:checked')).map(el => el.value),
+          noticeDays: document.getElementById('notice-days').value,
+          refillFrequency: document.querySelector('input[name="refillFrequency"]:checked')?.value,
+          notificationChannels: Array.from(document.querySelectorAll('input[name="notificationChannels"]:checked')).map(el => el.value),
+          autoOrder: document.querySelector('input[name="autoOrder"]:checked')?.value === 'yes'
+            // Add other survey fields
+        };
+        
+        // Combine data
+        const completeData = {
+            ...registrationData,
+            ...surveyData
+        };
+        
+        // Send to your API
+        // const response = await fetch('https://wta-backend.onrender.com/api/customers/complete-profile/', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(completeData)
+        // });
+        window.location.href = '/customer/login';
+        
+        // if (response.ok) {
+        //     // Redirect to dashboard
+        //     window.location.href = '/dashboard';
+        // } else {
+        //     const error = await response.json();
+        //     showAlert('error', error.detail || 'Survey submission failed');
+        // }
+    } catch (error) {
+        showAlert('error', 'Connection error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Complete Registration';
+    }
+  });
+
+    // Initialize the form when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initializeForm);
+  </script>
+</body>
+</html>
