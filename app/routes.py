@@ -6,6 +6,10 @@ customer_routes = Blueprint('customer', __name__,
     template_folder='templates/customer')
 
 
+@customer_routes.route('/')
+def home():
+    return render_template('auth/signup.html')
+
 # Dashboard sub-route (no separate Blueprint needed)
 @customer_routes.route('/customer/dashboard')
 def dashboard():
